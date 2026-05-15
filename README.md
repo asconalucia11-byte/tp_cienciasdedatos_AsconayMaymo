@@ -22,8 +22,9 @@ Análisis de la estructura y composición del empleo en Argentina con el objetiv
 
 ## 🗃️ Bases de datos
 
-Principal: Cuenta Generación del Ingreso (CGI) | INDEC 
-Complementaria: Agregados Macroeconómicos — Cuentas Nacionales | INDEC 
+**Principal**: Cuenta Generación del Ingreso (CGI) | INDEC 
+
+**Complementaria**: Agregados Macroeconómicos — Cuentas Nacionales | INDEC 
 
 ---
 ## 📊 Variables principales
