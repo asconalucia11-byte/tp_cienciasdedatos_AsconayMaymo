@@ -190,3 +190,5 @@ write_csv(macro_limpia, file.path(outstub, "macro_limpia.csv"))
 cat("Limpieza completada.\n")
 cat("  cgi_limpia:   ", nrow(cgi_limpia),   "filas,", ncol(cgi_limpia),   "columnas\n")
 cat("  macro_limpia: ", nrow(macro_limpia),  "filas,", ncol(macro_limpia), "columnas\n")
+
+
