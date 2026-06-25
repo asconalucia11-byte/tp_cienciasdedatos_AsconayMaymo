@@ -13,10 +13,9 @@
 #   de menor productividad relativa, lo que explica una creciente
 #   precarización del empleo y menores ingresos.
 #
-# Hipótesis secundaria: El aumento del empleo en sectores de baja
-#   productividad está asociado a un incremento del trabajo no asalariado
-#   (cuentapropismo) y a una menor participación de las remuneraciones
-#   asalariadas en el ingreso total.
+# Hipótesis complementaria: Incluso detro de estos sectores de baja productividad 
+# hubo un crecimiento de la parte no asalariada e informal por lo que el efecto
+# sobre el total de la economia es doble.
 #
 # Inputs:   Input/cgi_limpia.csv
 #           Input/macro_limpia.csv
@@ -312,7 +311,7 @@ print(resumen_total)
 
 sectores |>
   select(productividad, part_rta, part_imb, part_na, part_anr) |>
-  filter(complete.cases(.)) |>
+  drop_na() |>
   ggpairs(
     upper = list(continuous = wrap("cor", method = "spearman")),
     lower = list(continuous = wrap("points", alpha = 0.3)),
@@ -359,6 +358,39 @@ variacion_part_rta <- sectores |>
 
 print(variacion_part_rta)
 
+# --- 5.5. Clasificación de sectores por grupo de productividad ---------------
+
+# Calculamos la productividad promedio de cada sector para todo el período
+# y los dividimos en tres grupos usando terciles.
+# Esto nos permite comparar el comportamiento del empleo entre grupos
+# de distinta productividad.
+
+prod_sector <- sectores |>
+  group_by(sector) |>
+  summarise(
+    productividad_media = mean(productividad, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(
+    grupo_prod = case_when(
+      productividad_media <= quantile(productividad_media, 1/3) ~ "Baja productividad",
+      productividad_media <= quantile(productividad_media, 2/3) ~ "Media productividad",
+      TRUE                                                       ~ "Alta productividad"
+    )
+  )
+
+# Verificar cuántos sectores por grupo
+prod_sector |> count(grupo_prod)
+
+# Ver qué sectores quedaron en cada grupo
+print(prod_sector |> arrange(grupo_prod, productividad_media))
+
+# Unir clasificación a la base principal
+sectores <- sectores |>
+  left_join(
+    prod_sector |> select(sector, grupo_prod, productividad_media),
+    by = "sector"
+  )
 
 # =============================================================================
 # PARTE VI: GUARDAR LA BASE DE ANÁLISIS
