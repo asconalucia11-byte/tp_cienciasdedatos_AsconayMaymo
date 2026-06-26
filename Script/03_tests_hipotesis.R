@@ -481,3 +481,9 @@ cat("\n")
 # between es solo el 10% del cambio total. Lo que sí aparece es un deterioro
 # transversal de la participación salarial que ocurrió dentro de los sectores,
 # especialmente en los de media productividad.
+
+# Exportar tablas
+write_csv(tabla_cor_global,  "Output/tablas/correlaciones_global.csv")
+write_csv(tabla_cor_grupos,  "Output/tablas/correlaciones_grupos.csv")
+write_csv(cagr_por_grupo,    "Output/tablas/cagr_por_grupo.csv")
+write_csv(shift_share_grupo, "Output/tablas/shift_share_grupo.csv")

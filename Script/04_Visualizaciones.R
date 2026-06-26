@@ -9,8 +9,8 @@
 #           y la evolución de la informalidad entre 2016 y 2022.
 #
 # Input:  Input/base_analisis.csv
-# Output: Output/grafico_exploratorio.png
-#         Output/grafico_comunicacional.png
+# Output: Output/graficos/grafico_exploratorio.png
+#         Output/graficos/grafico_comunicacional.png
 # =============================================================================
 
 library(tidyverse)
@@ -116,7 +116,14 @@ g_exploratorio <- ggplot(
   geom_text_repel(
     aes(label = sector_corto),
     size         = 3.5,
-    max.overlaps = 30,
+    color = "black",
+    fontface = "plain",
+    segment.color = "gray60",
+    segment.size = 0.3,
+    box.padding = 0.5,
+    point.padding = 0.4,
+    force = 3,
+    max.overlaps = Inf,
     show.legend  = FALSE
   ) +
   geom_vline(xintercept = var_empleo_economia,
@@ -148,7 +155,7 @@ g_exploratorio <- ggplot(
 g_exploratorio
 
 ggsave(
-  "Output/grafico_exploratorio.png",
+  "Output/graficos/grafico_exploratorio.png",
   g_exploratorio,
   width  = 10,
   height = 7,
@@ -220,10 +227,21 @@ g_comunicacional <- ggplot(
   geom_hline(yintercept = 0,
              linetype = "solid", color = "gray70", linewidth = 0.5) +
   geom_point(alpha = 0.85) +
-  geom_text(aes(label = etiqueta),
-            size = 3,
-            vjust = -1.8,
-            show.legend = FALSE) +
+  geom_text(
+    aes(
+      label = etiqueta,
+      size= puestos_medio
+    ),
+    size = 4.5,
+    vjust = 0.5,
+    hjust = 0.5,
+    color = "black",
+    fontface = "plain",
+    show.legend = FALSE) +
+  scale_size_continuous(
+    range = c(2.7, 4.5),
+    guide = "none"
+  )+
   scale_color_manual(
     values = c(
       "Baja productividad"  = "#e05c3a",
@@ -248,7 +266,7 @@ g_comunicacional <- ggplot(
 g_comunicacional
 
 ggsave(
-  "Output/grafico_comunicacional.png",
+  "Output/graficos/grafico_comunicacional.png",
   g_comunicacional,
   width  = 10,
   height = 7,

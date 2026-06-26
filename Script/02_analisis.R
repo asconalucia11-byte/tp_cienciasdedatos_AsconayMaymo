@@ -286,24 +286,6 @@ resumen_por_sector <- sectores |>
 
 print(resumen_por_sector)
 
-resumen_por_grupo <- sectores |>
-  group_by(grupo_prod) |>
-  summarise(
-    n_sectores          = n_distinct(sector),
-    productividad_media = round(mean(productividad, na.rm = TRUE), 1),
-    part_rta_media      = round(mean(part_rta,      na.rm = TRUE), 3),
-    part_na_media       = round(mean(part_na,       na.rm = TRUE), 3),
-    part_anr_media      = round(mean(part_anr,      na.rm = TRUE), 3),
-    .groups = "drop"
-  ) |>
-  mutate(
-    grupo_prod = factor(grupo_prod,
-                        levels = c("Baja productividad",
-                                   "Media productividad",
-                                   "Alta productividad"))
-  ) |>
-  arrange(grupo_prod)
-
 # Frecuencia de sectores con tabyl (janitor)
 sectores |>
   tabyl(sector) |>
@@ -431,3 +413,25 @@ write_csv(base_analisis, file.path(outstub, "base_analisis.csv"))
 cat("Base de análisis guardada en Input/base_analisis.csv\n")
 cat("Filas:", nrow(base_analisis), "\n")
 cat("Columnas:", ncol(base_analisis), "\n")
+
+resumen_por_grupo <- sectores |>
+  group_by(grupo_prod) |>
+  summarise(
+    n_sectores          = n_distinct(sector),
+    productividad_media = round(mean(productividad, na.rm = TRUE), 1),
+    part_rta_media      = round(mean(part_rta,      na.rm = TRUE), 3),
+    part_na_media       = round(mean(part_na,       na.rm = TRUE), 3),
+    part_anr_media      = round(mean(part_anr,      na.rm = TRUE), 3),
+    .groups = "drop"
+  ) |>
+  mutate(
+    grupo_prod = factor(grupo_prod,
+                        levels = c("Baja productividad",
+                                   "Media productividad",
+                                   "Alta productividad"))
+  ) |>
+  arrange(grupo_prod)
+
+# Exportar tablas
+write_csv(resumen_por_sector, "Output/tablas/resumen_por_sector.csv")
+write_csv(resumen_por_grupo,  "Output/tablas/resumen_por_grupo.csv")
