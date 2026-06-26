@@ -9,7 +9,8 @@
 #   5.6  Correlaciones Spearman (globales)
 #   5.7  Correlaciones Spearman por grupo de productividad
 #   5.8  CAGR por grupo de productividad
-#
+#   5.9 DESCOMPOSICIÓN WITHIN/BETWEEN (SHIFT-SHARE)
+
 # Requiere que `sectores` ya esté en el entorno (correr 02_analisis.R antes).
 # `sectores` debe tener las columnas: sector, anio, productividad,
 #   part_rta, part_na, part_anr, puestos_total, grupo_prod
