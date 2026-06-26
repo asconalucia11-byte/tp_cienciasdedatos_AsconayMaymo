@@ -11,16 +11,18 @@
 #   5.8  CAGR por grupo de productividad
 #   5.9 DESCOMPOSICIÓN WITHIN/BETWEEN (SHIFT-SHARE)
 
-# Requiere que `sectores` ya esté en el entorno (correr 02_analisis.R antes).
-# `sectores` debe tener las columnas: sector, anio, productividad,
-#   part_rta, part_na, part_anr, puestos_total, grupo_prod
+# Input:  Input/base_analisis.csv
+# Output: Output/tablas/correlaciones_global.csv
+#         Output/tablas/correlaciones_grupos.csv
+#         Output/tablas/cagr_por_grupo.csv
+#         Output/tablas/shift_share_grupo.csv
 # =============================================================================
 
 
 # --- 0. Librerías -------------------------------------------------------------
 
 library(tidyverse)
-
+sectores <- read_csv("Input/base_analisis.csv", show_col_types = FALSE)
 
 # =============================================================================
 # 5.5 TEST T PAREADO: ¿cambió la participación salarial entre 2016 y 2022?
