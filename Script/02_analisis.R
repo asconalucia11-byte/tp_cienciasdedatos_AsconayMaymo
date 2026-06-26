@@ -267,7 +267,7 @@ total_economia <- total_economia |>
 # --- 4.1. Resumen completo de los indicadores construidos --------------------
 
 skim(sectores |> select(vab_real, rta_real, imb_real, puestos_total,
-                         productividad, part_rta, part_imb, part_na))
+                        productividad, part_rta, part_imb, part_na, part_anr))
 
 # --- 4.2. Estadísticas por sector (promedio del período) ---------------------
 
@@ -285,6 +285,24 @@ resumen_por_sector <- sectores |>
   arrange(desc(productividad_med))
 
 print(resumen_por_sector)
+
+resumen_por_grupo <- sectores |>
+  group_by(grupo_prod) |>
+  summarise(
+    n_sectores          = n_distinct(sector),
+    productividad_media = round(mean(productividad, na.rm = TRUE), 1),
+    part_rta_media      = round(mean(part_rta,      na.rm = TRUE), 3),
+    part_na_media       = round(mean(part_na,       na.rm = TRUE), 3),
+    part_anr_media      = round(mean(part_anr,      na.rm = TRUE), 3),
+    .groups = "drop"
+  ) |>
+  mutate(
+    grupo_prod = factor(grupo_prod,
+                        levels = c("Baja productividad",
+                                   "Media productividad",
+                                   "Alta productividad"))
+  ) |>
+  arrange(grupo_prod)
 
 # Frecuencia de sectores con tabyl (janitor)
 sectores |>
@@ -318,6 +336,16 @@ sectores |>
     title = "Matriz de correlaciones — indicadores por sector (2016-2022)"
   )
 
+png("Output/ggally_correlaciones.png", width = 1200, height = 1000, res = 150)
+sectores |>
+  select(productividad, part_rta, part_imb, part_na, part_anr) |>
+  drop_na() |>
+  ggpairs(
+    upper = list(continuous = wrap("cor", method = "spearman")),
+    lower = list(continuous = wrap("points", alpha = 0.3)),
+    title = "Matriz de correlaciones — indicadores por sector (2016-2022)"
+  )
+dev.off()
 
 # --- 5.2. Correlaciones individuales Spearman --------------------------------
 
