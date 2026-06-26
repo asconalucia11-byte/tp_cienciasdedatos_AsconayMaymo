@@ -1,0 +1,4 @@
+relacion,rho,p_valor,sig_5pct
+Productividad ~ part. no asalariada,-0.333,8.029492681906603e-4,TRUE
+Productividad ~ part. no registrada,-0.677,2.2674302944745415e-15,TRUE
+Productividad ~ part. salarial,-0.482,1.902527820554038e-7,TRUE

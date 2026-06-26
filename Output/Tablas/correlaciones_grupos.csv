@@ -1,0 +1,10 @@
+grupo,relacion,rho,p_valor,sig_5pct
+Baja productividad,Productividad ~ part. no asalariada,0.48,0.009734300983573288,TRUE
+Baja productividad,Productividad ~ part. no registrada,-0.175,0.31603461537919364,FALSE
+Baja productividad,Productividad ~ part. salarial,-0.9,1.8608051067893514e-13,TRUE
+Media productividad,Productividad ~ part. no asalariada,-0.203,0.24330869986263345,FALSE
+Media productividad,Productividad ~ part. no registrada,-0.311,0.06879979713184199,FALSE
+Media productividad,Productividad ~ part. salarial,0.097,0.5807744090741129,FALSE
+Alta productividad,Productividad ~ part. no asalariada,-0.697,3.261586644486272e-6,TRUE
+Alta productividad,Productividad ~ part. no registrada,0.264,0.12477911532926642,FALSE
+Alta productividad,Productividad ~ part. salarial,-0.283,0.0999511312073253,FALSE
